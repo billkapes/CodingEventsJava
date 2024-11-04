@@ -25,6 +25,7 @@ public class EventController {
     @Autowired
     private EventCategoryRepository eventCategoryRepository;
 
+
     @GetMapping
     public String displayAllEvents(@RequestParam(required = false) Integer categoryId, Model model) {
         if (categoryId == null) {
@@ -80,6 +81,13 @@ public class EventController {
         }
 
         return "redirect:/events";
+    }
+
+    public String displayAddTagForm(@RequestParam Integer eventId, Model model) {
+        Optional<Event> result = eventRepository.findById(eventId);
+        Event event = result.get();
+        model.addAttribute("title", "Add Tag to: " + event.getName());
+        return "";
     }
 
 }
